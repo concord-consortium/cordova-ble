@@ -490,7 +490,9 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
  * From interface CBPeripheralDelegate.
  * Called when RSSI value has been read from device.
  */
-- (void) peripheralDidUpdateRSSI: (CBPeripheral *)peripheral
+/*
+// DM: removed to enable latest iOS build
+ - (void) peripheralDidUpdateRSSI: (CBPeripheral *)peripheral
 	error: (NSError *)error
 {
 	if ([self commandIsNotAvailable]) return;
@@ -513,6 +515,7 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
 
 	[self clearActiveCommandAndContinue];
 }
+*/
 
 /**
  * From interface CBPeripheralDelegate.
@@ -805,7 +808,7 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
 - (void) startScan: (CDVInvokedUrlCommand*)command
 {
 	// Bluetooth must be on.
-	if (self.central.state != CBCentralManagerStatePoweredOn)
+	if (self.central.state != CBManagerStatePoweredOn)
 	{
 		// Save postponed command.
 		self.startScanPostponedCommand = command;
@@ -849,7 +852,7 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
  */
 - (void) stopScan: (CDVInvokedUrlCommand*)command
 {
-	if (self.central.state != CBCentralManagerStatePoweredOn)
+	if (self.central.state != CBManagerStatePoweredOn)
 	{
 		// Clear postponed command if Bluetooth is off.
 		self.startScanPostponedCommand = nil;
@@ -875,7 +878,7 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
  */
 - (void) getBondedDevices: (CDVInvokedUrlCommand*)command
 {
-	if (self.central.state != CBCentralManagerStatePoweredOn)
+	if (self.central.state != CBManagerStatePoweredOn)
 	{
 		NSLog(@"@@@ getBondedDevices BLE off");
 		// BLE is off, set command object, this method will be called
@@ -1571,7 +1574,7 @@ static int EVOPerhiperalAssociatedObjectKey = 42;
 {
 	// Execute commands that have been postponed because
 	// of Bluetooth not being on.
-	if (central.state == CBCentralManagerStatePoweredOn)
+	if (central.state == CBManagerStatePoweredOn)
 	{
 		if (nil != self.startScanPostponedCommand)
 		{

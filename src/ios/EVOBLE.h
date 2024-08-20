@@ -179,7 +179,8 @@ typedef void (^EVOCommandBlock)(void);
 	withBlock: (EVOCommandBlock)block;
 - (NSString*) getActiveCallbackId;
 - (void) clearActiveCommandAndContinue;
-- (void) assertCommandAvailable;
+// DM: removed to enable latest iOS build
+// - (void) assertCommandAvailable;
 - (void) assertCommandHasObject: (id)obj andType: (int)type;
 
 // Charactristics have their own callback management, since a notification
